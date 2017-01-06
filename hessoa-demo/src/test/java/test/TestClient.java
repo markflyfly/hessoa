@@ -32,7 +32,6 @@ public class TestClient {
 			System.out.println("调用服务耗时:" + (end - start) + "ms");
 		}
 
-		// Thread.sleep(300000); // 观察SOAClient
 	}
 	
 }
