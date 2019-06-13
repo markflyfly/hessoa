@@ -18,7 +18,7 @@ public class SOAClientContext {
 	 * @return
 	 */
 	public static Map<String, String> get() {
-		Map<String, String> result = new HashMap<String, String>();
+		Map<String, String> result = new HashMap<>();
 		Map<String, String> map = HessianHeaderContext.get();
 		for(Entry<String, String> entry : map.entrySet()) {
 			String key = entry.getKey();

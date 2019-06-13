@@ -23,6 +23,7 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private IUserDAO userDAO;
 
+	@Override
 	public String getInfo() {
 		
 		System.out.println("============从客户端拿到的context数据:============");
