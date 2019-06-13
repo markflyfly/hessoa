@@ -67,6 +67,7 @@ public class HessianServiceScanner implements BeanFactoryPostProcessor,
 		/**
 		 * 将bean名称设置为@HessianService注解的实现类的className
 		 */
+		@Override
 		protected String determineBeanNameFromAnnotation(
 				AnnotatedBeanDefinition annotatedDef) {
 			AnnotationMetadata amd = annotatedDef.getMetadata();
@@ -125,7 +126,7 @@ public class HessianServiceScanner implements BeanFactoryPostProcessor,
 					if (interfaces == null || interfaces.length == 0) {
 						throw new RuntimeException("@HessianService bean must implement at least one interface");
 					}
-					Class<?> interf = null;
+					Class<?> interf;
 					Class<?> annoInterf = (Class<?>) getAnnotationValue(bd.getMetadata(), "value");
 					if(annoInterf != null) {
 						if(annoInterf.isInterface()) {

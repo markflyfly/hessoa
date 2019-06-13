@@ -47,7 +47,7 @@ public class SOAHessianServiceExporter extends HessianServiceExporter implements
 	
 	private String beanName; // 就是url，由注解HessianServiceScanner注入
 	
-	private List<String> urls = new ArrayList<String>();
+	private List<String> urls = new ArrayList<>();
 	
 	/**
 	 * 读取自定义的header，并全量放到HessianHeaderContext中
@@ -63,9 +63,9 @@ public class SOAHessianServiceExporter extends HessianServiceExporter implements
 		HessianHeaderContext.clear();
 		Enumeration<String> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
-		 	String name = enumeration.nextElement().toString();
+		 	String name = enumeration.nextElement();
 		 	String value = request.getHeader(name);
-		 	if(name != null && name.startsWith(Constants.HESSOA_CONTEXT_HEADER_PREFIX)) {
+		 	if(name.startsWith(Constants.HESSOA_CONTEXT_HEADER_PREFIX)) {
 		 		HessianHeaderContext.add(name.substring(Constants.HESSOA_CONTEXT_HEADER_PREFIX.length()),
 		 				value);
 		 	}
@@ -93,7 +93,7 @@ public class SOAHessianServiceExporter extends HessianServiceExporter implements
 			String urlMapping = urlMappings.get(0).trim().replace("*", "");
 			
 			for(String endPoint : endPoints) {
-				String url = null;
+				String url;
 				if(urlMapping.endsWith("/") && beanName.startsWith("/")) {
 					url = urlMapping + beanName.substring(1);
 				} else {
@@ -141,9 +141,8 @@ public class SOAHessianServiceExporter extends HessianServiceExporter implements
 				"*:type=Connector,*"), Query.match(Query.attr("protocol"),
 				Query.value("HTTP/1.1")));
 		List<String> addresses = NetUtils.getIpv4IPs();
-		
-		for (Iterator<ObjectName> i = objs.iterator(); i.hasNext();) {
-			ObjectName obj = i.next();
+
+		for (ObjectName obj : objs) {
 			String scheme = mbs.getAttribute(obj, "scheme").toString();
 			String port = obj.getKeyProperty("port");
 			for (String ip : addresses) {
@@ -167,7 +166,7 @@ public class SOAHessianServiceExporter extends HessianServiceExporter implements
 		
 		StringBuilder sb = new StringBuilder();
 		BufferedReader br = new BufferedReader(new FileReader(webXml));
-		String line = null;
+		String line;
 		while ((line = br.readLine()) != null) {
 			sb.append(line); // 已经去掉回车符
 		}
